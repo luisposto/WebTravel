@@ -19,29 +19,14 @@ function render_header($t, $STRINGS, $locale, $user)
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><?=html($t['brand'] ?? $APP_NAME)?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background: #fff7f0;
-    }
-    .navbar {
-      background: linear-gradient(90deg, #ffe0b2, #fff3e0);
-    }
-    .navbar .nav-link.active,
-    .navbar .nav-link:hover {
-      color: #bf360c !important;
-    }
-    .card {
-      border-radius: 1rem;
-    }
-    .badge.rounded-pill {
-      background-color: #fff3e0;
-      color: #6d4c41;
-    }
-  </style>
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
 </head>
-<body class="bg-light text-dark">
+<body class="tm-body">
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+  <nav class="navbar tm-navbar navbar-expand-lg sticky-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="?screen=landing&lang=<?=html($locale)?>">
         <?=html($t['brand'] ?? $APP_NAME)?>
@@ -101,10 +86,19 @@ function render_header($t, $STRINGS, $locale, $user)
                  href="#"
                  role="button"
                  data-bs-toggle="dropdown">
-                <span class="rounded-circle bg-warning d-inline-flex justify-content-center align-items-center"
-                      style="width: 28px; height: 28px; font-size: 0.8rem;">
-                  <?=html(strtoupper(substr($user['name'] ?? 'U', 0, 1)))?>
-                </span>
+                <?php $avatar = $user['avatar'] ?? null; ?>
+                <?php if (!empty($avatar)): ?>
+                  <img
+                    src="uploads/avatars/<?=html($avatar)?>"
+                    alt="<?=html($user['name'] ?? 'U')?>"
+                    class="rounded-circle"
+                    style="width: 28px; height: 28px; object-fit: cover;">
+                <?php else: ?>
+                  <span class="rounded-circle bg-warning d-inline-flex justify-content-center align-items-center"
+                        style="width: 28px; height: 28px; font-size: 0.8rem;">
+                    <?=html(strtoupper(substr($user['name'] ?? 'U', 0, 1)))?>
+                  </span>
+                <?php endif; ?>
                 <span><?=html($user['name'] ?? 'Usuario')?></span>
               </a>
               <ul class="dropdown-menu dropdown-menu-end">

@@ -87,7 +87,8 @@ function view_group($t)
       </h2>
       <div class="row g-4">
         <div class="col-md-8">
-          <div id="group-messages" class="vstack gap-2 mb-3">
+          <div class="chat-wrapper">
+            <div id="group-messages" class="chat-messages vstack gap-2 mb-3">
             <?php if (!empty($messages)): ?>
               <?php foreach ($messages as $m): ?>
                 <div class="small">
@@ -98,21 +99,22 @@ function view_group($t)
                   </div>
                 </div>
               <?php endforeach; ?>
-            <?php else: ?>
+              <?php else: ?>
               <p class="text-muted small mb-0">Todavía no hay mensajes en este grupo.</p>
             <?php endif; ?>
           </div>
-          <div id="typing-indicator" class="text-muted small mb-2" style="display:none;"></div>
-          <?php if ($can_post): ?>
+            <div id="typing-indicator" class="text-muted small mb-2" style="display:none;"></div>
+            <?php if ($can_post): ?>
             <form class="d-flex gap-2" method="post">
               <input type="hidden" name="action" value="send_group_message" />
               <input type="hidden" name="trip_id" value="<?=html($trip_id)?>" />
               <input class="form-control form-control-sm" name="message" placeholder="Escribí un mensaje" required />
               <button class="btn btn-primary btn-sm" type="submit">Enviar</button>
             </form>
-          <?php else: ?>
+            <?php else: ?>
             <p class="text-muted small">Sumate al viaje para poder escribir en el grupo.</p>
-          <?php endif; ?>
+            <?php endif; ?>
+          </div>
         </div>
         <div class="col-md-4">
           <div class="border rounded-3 p-3 mb-3">
@@ -129,7 +131,7 @@ function view_group($t)
                           <!--<?=html($user['bio'])?>!-->
                         </div>
                       <?php endif; ?>
-                    <?php else: ?>
+                      <?php else: ?>
                       • <button type="button"
                                 class="btn btn-link btn-sm p-0 align-baseline participant-bio-trigger"
                                 data-user-name="<?=html($p['name'])?>"
@@ -145,7 +147,7 @@ function view_group($t)
                   </li>
                 <?php endforeach; ?>
               </ul>
-            <?php else: ?>
+              <?php else: ?>
               <p class="small text-muted mb-0">Sin participantes registrados.</p>
             <?php endif; ?>
           </div>
@@ -341,10 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var name = btn.getAttribute('data-user-name') || '';
     var country = btn.getAttribute('data-user-country') || '';
 
-    // Opción A: si la bio no está habilitada o está vacía, no mostramos nada
-    if (show !== '1' || !bio.trim()) {
-      return;
-    }
+    var allow = (show === '1');
 
     var nameNode = document.getElementById('bioModalName');
     var countryNode = document.getElementById('bioModalCountry');
@@ -352,12 +351,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (nameNode) nameNode.textContent = name;
     if (countryNode) countryNode.textContent = country;
+
+    if (!allow) {
+        bio = 'Este viajero prefirió no mostrar su bio.';
+    } else if (!bio.trim()) {
+        bio = 'Este viajero todavía no completó su bio.';
+    }
+
     if (bioNode) bioNode.textContent = bio;
 
     if (bioModal) {
-      bioModal.show();
+        bioModal.show();
     }
-  }
+}
+
+function bindParticipantClicks() {
+    var triggers = document.querySelectorAll('.participant-bio-trigger');
+    triggers.forEach(function (btn) {
+        btn.removeEventListener('click', onParticipantClick);
+        btn.addEventListener('click', onParticipantClick);
+    });
+}
 
   function bindParticipantClicks() {
     var triggers = document.querySelectorAll('.participant-bio-trigger');

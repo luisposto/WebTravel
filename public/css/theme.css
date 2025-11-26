@@ -1,0 +1,359 @@
+
+/* ===========================
+   TripMatch - theme.css
+   Estilo moderno / joven sobre Bootstrap 5
+   =========================== */
+
+/* Paleta principal */
+:root {
+    --tm-primary: #7c3aed;      /* violeta */
+    --tm-primary-soft: #ede9fe; /* violeta muy suave */
+    --tm-secondary: #22c55e;    /* verde fresh */
+    --tm-accent: #f97316;       /* naranja para detalles */
+    --tm-bg: #f3f4f6;           /* gris claro */
+    --tm-text-main: #0f172a;    /* gris muy oscuro */
+    --tm-text-muted: #6b7280;   /* gris medio */
+}
+
+/* ===========================
+   Layout general
+   =========================== */
+
+.tm-body {
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #e0f2fe 0, #f9fafb 45%, #eef2ff 100%);
+    color: var(--tm-text-main);
+    min-height: 100vh;
+}
+
+main.container {
+    max-width: 1100px;
+}
+
+/* Pequeñas transiciones globales */
+.card,
+.btn,
+.form-control,
+.form-select,
+.navbar,
+.badge {
+    transition: all 0.18s ease-out;
+}
+
+/* ===========================
+   Navbar
+   =========================== */
+
+.navbar.tm-navbar {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.navbar.tm-navbar .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.navbar.tm-navbar .nav-link {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--tm-text-muted);
+    border-radius: 999px;
+    padding-inline: 0.9rem;
+}
+
+.navbar.tm-navbar .nav-link:hover {
+    background-color: var(--tm-primary-soft);
+    color: var(--tm-primary);
+}
+
+.navbar.tm-navbar .nav-link.active {
+    background: linear-gradient(135deg, var(--tm-primary), #4f46e5);
+    color: #fff !important;
+}
+
+/* ===========================
+   Botones
+   =========================== */
+
+/* Botones principales: usamos tanto primary como warning porque la app usa btn-warning */
+.btn-primary,
+.btn-warning {
+    background: linear-gradient(135deg, var(--tm-primary), #4f46e5);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+}
+
+.btn-primary:hover,
+.btn-warning:hover {
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    border-color: transparent;
+    color: #ffffff;
+    box-shadow: 0 10px 22px rgba(79, 70, 229, 0.45);
+}
+
+/* Outline para acciones secundarias */
+.btn-outline-primary,
+.btn-outline-warning {
+    border-radius: 999px;
+    border-color: var(--tm-primary);
+    color: var(--tm-primary);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-warning:hover {
+    background: var(--tm-primary-soft);
+    color: var(--tm-primary);
+}
+
+/* Botón acento opcional */
+.btn-accent {
+    background: var(--tm-accent);
+    border-color: var(--tm-accent);
+    color: #111827;
+    font-weight: 600;
+}
+
+.btn-accent:hover {
+    background: #ea580c;
+    border-color: #ea580c;
+}
+
+/* Botones tipo chip para filtros */
+.btn-chip {
+    border-radius: 999px;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.9rem;
+    background: #e5e7eb;
+    color: #4b5563;
+    border: none;
+}
+
+.btn-chip.btn-chip-active {
+    background: var(--tm-primary-soft);
+    color: var(--tm-primary);
+}
+
+/* ===========================
+   Cards
+   =========================== */
+
+.card {
+    border-radius: 1.1rem;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.card.shadow-soft {
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+}
+
+.card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+}
+
+/* Hero de landing */
+.tm-hero-card {
+    background: radial-gradient(circle at top left, #eef2ff 0, #fdf2ff 45%, #ffffff 100%);
+}
+
+/* ===========================
+   Textos / Tipografía
+   =========================== */
+
+h1, h2, h3, h4, h5 {
+    letter-spacing: 0.01em;
+}
+
+.tm-section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.tm-section-sub {
+    font-size: 0.85rem;
+    color: var(--tm-text-muted);
+}
+
+/* Píldoras y badges */
+.badge-tag,
+.badge.rounded-pill {
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.25rem 0.65rem;
+    background: var(--tm-primary-soft);
+    color: var(--tm-primary);
+}
+
+/* ===========================
+   Formularios
+   =========================== */
+
+.form-control,
+.form-select {
+    border-radius: 0.9rem;
+    border-color: #e5e7eb;
+    font-size: 0.85rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--tm-primary);
+    box-shadow: 0 0 0 0.15rem rgba(124, 58, 237, 0.2);
+}
+
+.form-label {
+    font-size: 0.8rem;
+    color: #4b5563;
+}
+
+textarea.form-control {
+    min-height: 80px;
+}
+
+/* Switches de Ajustes */
+.form-switch .form-check-input {
+    width: 2.6em;
+    height: 1.4em;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: var(--tm-primary);
+    border-color: var(--tm-primary);
+}
+
+/* ===========================
+   Chat de grupo (group.php)
+   =========================== */
+
+.chat-wrapper {
+    background: #ffffff;
+    border-radius: 1.1rem;
+    border: 1px solid rgba(148, 163, 184, 0.3);
+    padding: 0.75rem;
+}
+
+.chat-messages {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+}
+
+.chat-message {
+    display: flex;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.chat-message.me {
+    justify-content: flex-end;
+}
+
+.chat-bubble {
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.9rem;
+    background: #f3f4f6;
+    max-width: 70%;
+}
+
+.chat-message.me .chat-bubble {
+    background: var(--tm-primary);
+    color: #ffffff;
+}
+
+.chat-meta {
+    font-size: 0.65rem;
+    color: var(--tm-text-muted);
+}
+
+/* ===========================
+   Perfil
+   =========================== */
+
+/* Botón lápiz sobre el avatar de perfil */
+.avatar-edit-btn {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    background-color: #ffffff;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.avatar-edit-btn:focus-visible {
+    outline: 2px solid var(--tm-primary);
+    outline-offset: 2px;
+}
+
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 999px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+}
+
+.profile-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: #e0f2fe;
+    color: #0f172a;
+    font-size: 0.75rem;
+}
+
+/* ===========================
+   Utilidades responsive
+   =========================== */
+
+@media (max-width: 767.98px) {
+    main.container {
+        padding-inline: 1rem;
+    }
+
+    .navbar.tm-navbar .navbar-brand span.logo-text {
+        font-size: 0.9rem;
+    }
+
+    .card {
+        border-radius: 0.9rem;
+    }
+}
+
+
+/* ===========================
+   Mapa de landing (OpenStreetMap)
+   =========================== */
+
+.tm-map-wrapper {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.tm-map {
+    width: 100%;
+    height: 220px;
+    border-radius: 0.9rem;
+}
+
+.leaflet-container {
+    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.profile-preview-card { margin-bottom: 0.5rem !important; }

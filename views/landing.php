@@ -3,7 +3,7 @@ function view_landing($t)
 {
     ?>
 <section class="mb-4">
-  <div class="card shadow-sm border-0 mb-3">
+  <div class="card shadow-soft border-0 mb-3 tm-hero-card">
     <div class="card-body">
       <div class="row align-items-center g-4">
         <div class="col-md-6">
@@ -28,12 +28,13 @@ function view_landing($t)
         </div>
         <div class="col-md-6">
           <div class="border rounded-3 p-3 bg-light">
-            <div class="ratio ratio-16x9 rounded-3 bg-white d-flex flex-column justify-content-center align-items-center mb-3">
-              <div class="mb-2 small text-muted">📍 Barcelona, Roma, Lisboa…</div>
-             
-             
+            <div class="tm-map-wrapper mb-3">
+              <div class="d-flex align-items-center gap-2 small text-muted mb-1">
+                <span>📍</span><span>Barcelona, Roma, Lisboa…</span>
+              </div>
+              <div id="tm-map" class="tm-map"></div>
             </div>
-             <div class="small text-muted">1.231 <?=html($t['activeTravelers'] ?? 'viajeros activos esta semana')?></div>
+            <div class="small text-muted">1.231 <?=html($t['activeTravelers'] ?? 'viajeros activos esta semana')?></div>
             <p class="small text-muted mb-0">
               <?=html($t['mapTeaser'] ?? 'Explorá qué viajeros estarán en tu mismo destino y fechas.')?>
             </p>
@@ -85,5 +86,43 @@ function view_landing($t)
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var mapEl = document.getElementById('tm-map');
+  if (!mapEl || typeof L === 'undefined') return;
+
+  var map = L.map('tm-map', {
+    zoomControl: false
+  }).setView([40.0, 0.0], 3);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Cargar usuarios online
+  fetch('api/online_travelers.php')
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (!Array.isArray(data)) return;
+      data.forEach(function (u) {
+        if (!u.lat || !u.lng) return;
+        var marker = L.circleMarker([u.lat, u.lng], {
+          radius: 6,
+          fillOpacity: 0.9
+        });
+        marker.addTo(map).bindPopup(
+          (u.name || 'Viajero') + '<br/>' +
+          (u.city || '') +
+          (u.country ? ', ' + u.country : '')
+        );
+      });
+    })
+    .catch(function (err) {
+      console.error('Error cargando viajeros online', err);
+    });
+});
+</script>
     <?php
 }

@@ -87,6 +87,7 @@ case 'set_locale':
             header('Location: ?screen=' . urlencode($screen) . '&lang=' . urlencode($_SESSION['lang']));
             exit;
 
+        
         case 'update_profile':
             if (!$user) break;
 
@@ -97,6 +98,7 @@ case 'set_locale':
             $langsStr    = trim($_POST['languages'] ?? '');
             $newPassword = $_POST['new_password'] ?? '';
 
+            // Idiomas
             $langs = [];
             if ($langsStr !== '') {
                 $parts = array_map('trim', explode(',', $langsStr));
@@ -106,13 +108,43 @@ case 'set_locale':
                 }
             }
 
+            // -------- FOTO DE PERFIL --------
+            $avatarFilename = $user['avatar'] ?? null;
+
+            if (!empty($_FILES['avatar']['name']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+                $tmpPath = $_FILES['avatar']['tmp_name'];
+                $ext = strtolower(pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION));
+                $allowed = ['jpg','jpeg','png','gif','webp'];
+
+                if (in_array($ext, $allowed, true)) {
+                    $uploadDir = dirname(__DIR__) . '/public/uploads/avatars';
+                    if (!is_dir($uploadDir)) {
+                        mkdir($uploadDir, 0775, true);
+                    }
+
+                    $newName  = 'user_' . $user['id'] . '_' . time() . '.' . $ext;
+                    $destPath = $uploadDir . '/' . $newName;
+
+                    if (move_uploaded_file($tmpPath, $destPath)) {
+                        $avatarFilename = $newName;
+                    }
+                }
+            }
+
+            // Password
+            $passwordHash = $user['password_hash'] ?? null;
+            if ($newPassword !== '') {
+                $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+            }
+
             $stmt = $pdo->prepare('UPDATE users
                                    SET name = :name,
                                        country = :country,
                                        email = :email,
                                        bio = :bio,
                                        languages = :langs,
-                                       password_hash = :password_hash
+                                       password_hash = :password_hash,
+                                       avatar = :avatar
                                    WHERE id = :id');
             $stmt->execute([
                 ':name'          => $name !== '' ? $name : $user['name'],
@@ -120,20 +152,20 @@ case 'set_locale':
                 ':email'         => $email !== '' ? $email : ($user['email'] ?? null),
                 ':bio'           => $bio,
                 ':langs'         => $langs ? json_encode($langs, JSON_UNESCAPED_UNICODE) : null,
-                ':password_hash' => $newPassword !== '' ? password_hash($newPassword, PASSWORD_DEFAULT) : ($user['password_hash'] ?? null),
+                ':password_hash' => $passwordHash,
+                ':avatar'        => $avatarFilename,
                 ':id'            => $user['id'],
             ]);
 
             if ($name !== '')    $user['name']    = $name;
             if ($country !== '') $user['country'] = $country;
             if ($email !== '')   $user['email']   = $email;
-            $user['bio']        = $bio;
-            $user['languages']  = $langs ? json_encode($langs, JSON_UNESCAPED_UNICODE) : null;
-            if ($newPassword !== '') {
-                $user['password_hash'] = password_hash($newPassword, PASSWORD_DEFAULT);
-            }
+            $user['bio']           = $bio;
+            $user['languages']     = $langs ? json_encode($langs, JSON_UNESCAPED_UNICODE) : null;
+            $user['password_hash'] = $passwordHash;
+            $user['avatar']        = $avatarFilename;
 
-            header('Location: ?screen=profile&lang=' . urlencode($_SESSION['lang']));
+            header('Location: ?screen=profile&lang=' . urlencode($_SESSION['lang'] ?? 'es'));
             exit;
 
         case 'add_trip':
@@ -315,3 +347,5 @@ case 'set_locale':
             exit;
     }
 }
+
+// Avatar upload handler added

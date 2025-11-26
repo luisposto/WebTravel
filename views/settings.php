@@ -35,37 +35,6 @@ function view_settings($t, $STRINGS, $locale, $user)
           </div>
         </div>
       </form>
-
-
-      <form method="post" class="row g-2 mb-3">
-        <input type="hidden" name="action" value="set_locale" />
-        <div class="col-md-6">
-          <label class="form-label small mb-1"><?=html($t['language'] ?? 'Idioma de la interfaz')?></label>
-          <select name="lang" class="form-select form-select-sm">
-            <?php foreach (array_keys($STRINGS) as $k): ?>
-              <option value="<?=$k?>" <?=$k===$locale ? 'selected' : ''?>>
-                <?=html($STRINGS[$k]['i18n'] ?? strtoupper($k))?>
-              </option>
-            <?php endforeach; ?>
-          </select>
-        </div>
-        <div class="col-md-6 d-flex align-items-end">
-          <button class="btn btn-outline-secondary btn-sm" type="submit">
-            <?=html($t['i18n'])?>
-          </button>
-        </div>
-      </form>
-
-      <form method="post" class="mt-3">
-        <input type="hidden" name="action" value="logout">
-        <button type="submit" class="btn btn-outline-danger btn-sm">
-          <?=html($t['logout'] ?? 'Cerrar sesión')?>
-        </button>
-      </form>
-
-      <button type="button" class="btn btn-outline-secondary btn-sm">
-        Exportar datos
-      </button>
     </div>
   </div>
 </section>

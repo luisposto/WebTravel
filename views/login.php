@@ -48,22 +48,12 @@ function view_login($t)
               id="loginPassword"
               name="password"
               placeholder="••••••••"
-              required
-            >
+              required>
           </div>
 
           <button type="submit" class="btn btn-warning btn-sm text-dark fw-semibold w-100">
             <?=html($t['loginButton'] ?? 'Iniciar sesión')?>
           </button>
-        </div>
-
-        <div class="col-md-6">
-          <p class="small text-muted mb-2">
-            <?=html($t['loginHelper'] ?? 'Usá tu email y una contraseña segura para acceder a TripMatch.')?>
-          </p>
-          <p class="small text-muted mb-0">
-            <?=html($t['loginSecurityNote'] ?? 'Tus datos se usan solo para iniciar sesión, no compartimos tu email con otros viajeros.')?>
-          </p>
         </div>
       </form>
     </div>

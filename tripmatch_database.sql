@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2025 a las 04:27:02
+-- Tiempo de generación: 24-11-2025 a las 18:28:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -172,7 +172,7 @@ CREATE TABLE `trip_participants` (
 
 INSERT INTO `trip_participants` (`trip_id`, `user_id`, `created_at`) VALUES
 (116, 1, '2025-11-23 23:44:16'),
-(116, 2, '2025-11-23 23:44:44'),
+(116, 2, '2025-11-24 14:14:01'),
 (116, 3, '2025-11-23 23:44:16'),
 (116, 13, '2025-11-23 23:44:16'),
 (117, 2, '2025-11-23 23:44:16'),
@@ -192,6 +192,7 @@ CREATE TABLE `users` (
   `password_hash` varchar(255) DEFAULT NULL,
   `country` varchar(100) DEFAULT NULL,
   `bio` text DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
   `show_bio` tinyint(1) NOT NULL DEFAULT 1,
   `sos_enabled` tinyint(1) NOT NULL DEFAULT 0,
   `share_location` tinyint(1) NOT NULL DEFAULT 0,
@@ -207,14 +208,14 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password_hash`, `country`, `bio`, `show_bio`, `sos_enabled`, `share_location`, `languages`, `not_traveling`, `phone`, `created_at`, `updated_at`, `last_login`) VALUES
-(1, 'Luis Postorivo', 'luis@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Argentina', 'Viajero frecuente y amante de la fotografía.ee', 1, 0, 0, '[\"Español\",\"Inglés\"]', 0, '+54911223344', '2025-11-21 23:11:32', '2025-11-22 01:03:15', NULL),
-(2, 'Maria García', 'maria@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'España', 'Busco compañeros para viajes de aventura.', 1, 0, 1, '[\"Español\", \"Francés\"]', 0, '+34600112233', '2025-11-21 23:11:32', '2025-11-24 00:21:20', NULL),
-(3, 'John Smith', 'john@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'USA', 'Digital nomad exploring South America.', 1, 0, 0, '[\"Inglés\"]', 1, '+15550199', '2025-11-21 23:11:32', '2025-11-22 01:16:51', NULL),
-(4, 'Ana Souza', 'ana@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Brasil', 'Adoro praias e cultura local.', 1, 0, 0, '[\"Portugués\", \"Español\"]', 0, '+5521998877', '2025-11-21 23:11:32', '2025-11-22 01:16:48', NULL),
-(11, 'Carlos Ruiz', 'carlos@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'México', 'Fotógrafo de paisajes y amante de la comida picante.', 1, 0, 0, '[\"Español\", \"Inglés\"]', 0, '+525512345678', '2025-11-23 23:44:16', '2025-11-23 23:44:16', NULL),
-(12, 'Sophie Dubois', 'sophie@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Francia', 'Buscando aventuras en América Latina.', 1, 0, 0, '[\"Francés\", \"Español\", \"Inglés\"]', 0, '+33612345678', '2025-11-23 23:44:16', '2025-11-23 23:44:16', NULL),
-(13, 'Kenji Sato', 'kenji@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Japón', 'Viajero solitario que busca grupos para cenar.', 1, 0, 0, '[\"Japonés\", \"Inglés\"]', 1, '+819012345678', '2025-11-23 23:44:16', '2025-11-23 23:44:16', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `password_hash`, `country`, `bio`, `avatar`, `show_bio`, `sos_enabled`, `share_location`, `languages`, `not_traveling`, `phone`, `created_at`, `updated_at`, `last_login`) VALUES
+(1, 'Luis Postorivo', 'luis@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Argentina', 'Viajero frecuente y amante de la fotografía.ee', 'user_1_1764003247.jpg', 1, 0, 0, '[\"Español\",\"Inglés\"]', 0, '+54911223344', '2025-11-21 23:11:32', '2025-11-24 14:18:54', NULL),
+(2, 'Maria García', 'maria@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'España', 'Busco compañeros para viajes de aventura. Baile', 'user_2_1764000328.webp', 1, 0, 1, '[\"Español\",\"Francés\"]', 0, '+34600112233', '2025-11-21 23:11:32', '2025-11-24 14:15:38', NULL),
+(3, 'John Smith', 'john@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'USA', 'Digital nomad exploring South America.', NULL, 1, 0, 0, '[\"Inglés\"]', 1, '+15550199', '2025-11-21 23:11:32', '2025-11-22 01:16:51', NULL),
+(4, 'Ana Souza', 'ana@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Brasil', 'Adoro praias e cultura local.', NULL, 1, 0, 0, '[\"Portugués\", \"Español\"]', 0, '+5521998877', '2025-11-21 23:11:32', '2025-11-22 01:16:48', NULL),
+(11, 'Carlos Ruiz', 'carlos@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'México', 'Fotógrafo de paisajes y amante de la comida picante.', NULL, 1, 0, 0, '[\"Español\", \"Inglés\"]', 0, '+525512345678', '2025-11-23 23:44:16', '2025-11-23 23:44:16', NULL),
+(12, 'Sophie Dubois', 'sophie@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Francia', 'Buscando aventuras en América Latina.', NULL, 1, 0, 0, '[\"Francés\", \"Español\", \"Inglés\"]', 0, '+33612345678', '2025-11-23 23:44:16', '2025-11-23 23:44:16', NULL),
+(13, 'Kenji Sato', 'kenji@test.com', '$2y$10$yJ/KpPebjKZrlfvwplEN2Og2O0nxnnn2352l.y4sy.d92Kk7zHmPW', 'Japón', 'Viajero solitario que busca grupos para cenar.', NULL, 1, 0, 0, '[\"Japonés\", \"Inglés\"]', 1, '+819012345678', '2025-11-23 23:44:16', '2025-11-23 23:44:16', NULL);
 
 --
 -- Índices para tablas volcadas
